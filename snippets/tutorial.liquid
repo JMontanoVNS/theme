@@ -1,0 +1,98 @@
+{% comment %}
+  {%- assign myVariable = 10 -%}
+
+  {%- if myVariable >= 10 -%}
+  <p>Hello World above 10</p>
+
+  {% else %}
+  <p>Hello World under 10</p>
+  {%- endif -%}
+
+  {% unless myVariable > 11 %}
+  <p>This variable ins't greater than 11</p>
+  {% else %}
+  <p>This variable is greater than 11</p>
+  {% endunless %}
+{% endcomment %}
+
+{% comment %}
+  This should not be rendered
+{% endcomment %}
+
+{% comment %}
+  {% for product in collection.products %}
+  <p style="color: green">{{ forloop.index }} - {{ product.title }}</p>
+  <ul>
+  {% for tag in product.tags %}
+  <li style="color: lightblue">{{ tag }}</li>
+  {% endfor %}
+  </ul>
+  {% endfor %}
+{% endcomment %}
+
+{% comment %}
+  {% paginate collection.products by 2 %}
+  {% for product in collection.products %}
+  {{ product.title }}
+  {% endfor %}
+
+  {{ paginate | default_pagination }}
+  {% endpaginate %}
+{% endcomment %}
+
+{% comment %} {% assign myVariable = '10.99' %} {% endcomment %}
+
+{% comment %}
+  {% assign myVariable = myVariable | plus: 5 %}
+  {{ myVariable }}
+{% endcomment %}
+
+{% comment %}
+  {% assign myVariable = myVariable | times: 1 %}
+  {% if myVariable > 5 %}
+  <p>{{ myVariable }} is greater than 5</p>
+  {% else %}
+  <p>{{ myVariable }} is less than 5</p>
+  {% endif %}
+
+  {% assign moduloNumber = myVariable | modulo: 2 %}
+  {% if moduloNumber == 0 %}
+  <p>Even number</p>
+  {% else %}
+  <p>Odd number</p>
+  {% endif %}
+
+  {% assign absNumber = myVariable | abs %}
+  <p>Absolute number -> {{ absNumber }}</p>
+  {% assign roundedNumber = myVariable | round %}
+  <p>Rounded number -> {{ roundedNumber }}</p>
+{% endcomment %}
+
+{% comment %}
+  {% assign myString = 'Hello World' %}
+  <p>{{ myString | append: ' - dlroW olleH' }}</p>
+{% endcomment %}
+
+{% comment %}
+  {{ 'tutorial.css' | asset_url | stylesheet_tag }}
+
+  <style>
+  .highlight {
+  background: yellow;
+  }
+  </style>
+
+  <p>Copyright {{ 'now' | date: '%Y-%m-%d' }}</p>
+  {% assign bgColor = '#FFFFFFFF' %}
+  <div class="swatch" style="background-color: {{ bgColor | color_darken: 20 }};"></div>
+
+  {{ collection.products.first.featured_image | image_url: width: 150, height: 150 | image_tag }}
+  <img src="{{ 'sparkle.gif' | asset_img_url: '200x200' }}" alt="sparkles" loading="eager" width="200" height="200">
+
+  <script src="{{ 'tutorial.js' | asset_url }}" defer></script>
+{% endcomment %}
+
+<h1>{{ title }}</h1>
+<script>
+  console.log({{ collection.products.first |  json }})
+</script>
